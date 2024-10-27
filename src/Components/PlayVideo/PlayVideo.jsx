@@ -22,7 +22,7 @@ const PlayVideo = () => {
 
     const fetchVideoData = async() =>{
         //fetching video data
-        const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`;
+        const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=100&id=${videoId}&key=${API_KEY}`;
         await fetch(videoDetails_url).then(response=>response.json()).then(data => setApiData(data.items[0]));
 
     } 
@@ -50,7 +50,7 @@ const PlayVideo = () => {
         <iframe src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <h3>{apiData?apiData.snippet.title:"Title Here"}</h3>
         <div className="play-video-info">
-            <p>{apiData?valueConverter(apiData.statistics.viewCount):""} &bull;{apiData?moment(apiData.snippet.publishedAt).fromNow():""}</p>
+            <p>{apiData?valueConverter(apiData.statistics.viewCount):""} &bull; {apiData?moment(apiData.snippet.publishedAt).fromNow():""}</p>
             <div>
                 <span><img src={like} alt="" />{apiData?valueConverter(apiData.statistics.likeCount):""}</span>
                 <span><img src={dislike} alt="" /></span>
