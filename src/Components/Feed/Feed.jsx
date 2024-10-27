@@ -5,9 +5,9 @@ import {API_KEY, valueConverter } from '../../data.js'
 import moment from 'moment'
 
 const Feed = ({category}) => {
-
+    const [data, setData] = useState([]);
     const fetchData = async ()=>{
-        setLoading(true);
+
         const videoList_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
         await fetch(videoList_url).then(response=>response.json()).then(data=>setData(data.items));
     }  
@@ -15,6 +15,7 @@ const Feed = ({category}) => {
     useEffect(()=> {
         fetchData();
     },[category])
+    
   return (
     <div className="feed">
         {data.map((item,index)=>{
